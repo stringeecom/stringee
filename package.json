@@ -1,0 +1,16 @@
+{
+  "name": "stringee",
+  "version": "2.9.2",
+  "description": "The Stringee communication platform makes it easy to embed high-quality interactive video, voice, SMS into webs and mobile apps.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "stringee",
+    "chat",
+    "javascript"
+  ],
+  "author": "Stringee",
+  "license": "ISC"
+}
