@@ -1,6 +1,7 @@
 A library to build high-quality voice, video applications in the Cloud. With this library, you can:
 + you can make voice calls or video calls
 + proactive call control
++ [View Sample](https://github.com/stringeecom/web-sdk-samples/tree/master/NpmStringeeSample)
 
 <hr>
 
@@ -79,15 +80,12 @@ var call = new StringeeCall(stringeeClient, from, to);
     call.on("error", (info) => {
         // on error
     });
-
     call.on("addlocalstream", (stream) => {
         // on add local stream
     });
-
     call.on("addremotestream", (stream) => {
         // on add remote stream
     });
-
     call.on("signalingstate", (state) => {
         // signalingstate
 
@@ -103,15 +101,12 @@ var call = new StringeeCall(stringeeClient, from, to);
         const reason = state.reason;
         callStatus.innerHTML = reason;
     });
-
     call.on("mediastate", (state) => {
         // mediastate 
     });
-
     call.on("info", (info) => {
         // on info
     });
-
     call.on("otherdevice", (data) => {
         // "on otherdevice
     });
@@ -167,24 +162,20 @@ call.reject((response) => {
 ```javascript
 var call = new StringeeCall2(stringeeClient, FROM_NUMBER, TO_NUMBER, true);
 
-// Setting Call Event
+// SETTING CALL EVENT
     call.on("addlocaltrack", (localtrack) => {
         // add local track
     });
-
     call.on("addremotetrack", (track) => {
         // add remote track
     });
-
     call.on("removeremotetrack", (track) => {
         // remove remote track
         track.detachAndRemove();
     });
-
     call.on("removelocaltrack", (track) => {
         track.detachAndRemove();
     });
-
     call.on("signalingstate", (state) => {
         // signalingstate object
         // {
@@ -216,58 +207,47 @@ call.makeCall((response) => {
 });
 
 // HANGUP
-call.hangup((res) => {
-        console.log("hangup res", res);
+    call.hangup((res) => {});
+    // at the same time we remove all video tracks
+    call.subscribedTracks.forEach((track) => {
+        track.detachAndRemove();
     });
-    onstop();
 
 // MUTE
-if (call.muted) {
-        call.mute(false);
-        console.log("unmuted");
-    } else {
-        call.mute(true);
-        console.log("muted");
-    }
+    call.mute(true);
 
 // SEND INFO
-call.sendInfo({ a: "hello", b: 1 }, (res) => {
-    console.log("sendInfo res", res);
-});
+    call.sendInfo({ a: "hello", b: 1 }, (res) => {});
 
 // ENABLE/DISABLE VIDEO
-if (call.localVideoEnabled) {
-        call.enableLocalVideo(false);
-        console.log("disable Local Video");
-    } else {
-        call.enableLocalVideo(true);
-        console.log("enable Local Video");
-    }
+    // disable Local Video
+    call.enableLocalVideo(false);
+    // enable Local Video
+    call.enableLocalVideo(true);
 
 // SWITCH CAMERA (mobile only)
     call.switchCamera();
 
 // Transfer
-    call.transferCall(to, toTypeValue, transferTypeValue, console.log);
+    // TYPE is string and value in list ['agent', 'queue']
+    // TYPE_VALUE is string and value in list ['blind', 'attended', 'conference', 'coach']
+    call.transferCall(to, TYPE, TYPE_VALUE, console.log);
 
 // HOLD VIDEO CALL
-if (!hold) {
-        call.sendHold(null, (h) => {
-            const btn = document.getElementById("holdBtn");
-            if (btn) {
-                btn.innerHTML = h ? "Hold" : "Unhold";
-            }
-        });
-    } else {
-        call.sendUnHold((h) => {
-            const btn = document.getElementById("holdBtn");
-            if (btn) {
-                btn.innerHTML = h ? "Hold" : "Unhold";
-            }
-        });
-    }
+    call.sendHold(null, (h) => {});
+    call.sendUnHold((h) => {});
 
 // LEAVE ROOM
-call.leaveRoom();
+    call.leaveRoom();
 ```
+
 ### Receiving the video call
+```javascript
+client.on("incomingcall2", (call2) => {
+    // Object incomingcall is StringeeCall2    
+    // reassign call2 to call
+    call = call2;
+
+    // then you should call SETTING CALL EVENTS
+});
+```
