@@ -7,15 +7,22 @@ A library to build high-quality voice, video applications in the Cloud. With thi
 
 ### Table of Contents
 
+**[Install SDK from NPM](#install-sdk-from-npm)**
 **[Create StringeeClient](#create-stringeeclient)**  
 **[Setup voice call](#setup-voice-call)**  
 **[Set up video call](#setup-video-call)**  
 
 
+## Install SDK from NPM
+```
+npm install stringee
+```
 
 ## Create StringeeClient
 
 ``` javascript
+import { StringeeUtil, StringeeClient, StringeeCall, StringeeCall2 } from "stringee";
+
 const client = new StringeeClient();
 
 client.on("connect", () => {
